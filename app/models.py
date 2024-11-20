@@ -82,8 +82,23 @@ class Model:
             cursor.execute(query, tuple(names))
             results = cursor.fetchall()
             return [dict(result) for result in results]
+            
+    def search_movie_name(self, search_string: str):
+        query = """
+            SELECT *
+            FROM movies
+            WHERE UPPER(movie_name) LIKE UPPER(%s) OR UPPER(movie_name_en) LIKE UPPER(%s)
+        """
+        search_param = f"%{search_string}%"
+        
+        with self.conn.cursor(cursor_factory=DictCursor) as cursor:
+            cursor.execute(query, (search_param, search_param)) 
+            results = cursor.fetchall()
+            return [dict(result) for result in results]
+
 
 if __name__ == "__main__":
     model = Model()
-    k = model.fetch_movies_by_names(["Superbad"])
+    #k = model.fetch_movies_by_names(["superbad-e-hoje-t3581"])
+    k = model.fetch_every_movie_base_info()
     print(k)

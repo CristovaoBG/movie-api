@@ -51,6 +51,9 @@ class Service:
     
     def fetch_movies_by_names(self, names: list):
         return self._model.fetch_movies_by_names(names)
+    
+    def search_movie_name(self, names: list):
+        return self._model.search_movie_name(names)
 
 if __name__ == "__main__":
     user = "dj_crissi"
