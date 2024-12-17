@@ -5,11 +5,31 @@ from models import Model
 
 service = Service()
 
+
 def configure_routes(app):
     @app.route('/api/movie-relations/', methods=['GET'])
     def get_movie_relations():
-        movie_str = request.args.get('movie_str')
-        return jsonify(service.get_movie_relations(movie_str))
+        movie_str = request.args.get('movie')
+        count = request.args.get('count')
+        try:
+            count = int(count)
+        except:
+            return jsonify([])
+        if (count > int(30)):
+            return jsonify([])
+        return jsonify(service.get_movie_relations(movie_str, count))
+
+    @app.route('/api/movie-relations-n-data/', methods=['GET'])
+    def get_movie_relations_n_data():
+        movie_str = request.args.get('movie')
+        count = request.args.get('count')
+        try:
+            count = int(count)
+        except:
+            return jsonify([])
+        if (count > int(30)):
+            return jsonify([])
+        return jsonify(service.get_movie_relations_n_data(movie_str, count))
     
     @app.route('/api/base-info/', methods=['GET'])
     def fetch_every_movie_base_info():
@@ -29,3 +49,6 @@ def configure_routes(app):
     @app.route('/')
     def debug_deploy():
         return 'online'
+
+if __name__ == "__main__":
+    print("eu estou aqui!!!")

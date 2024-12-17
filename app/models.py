@@ -87,7 +87,9 @@ class Model:
         query = """
             SELECT *
             FROM movies
-            WHERE UPPER(movie_name) LIKE UPPER(%s) OR UPPER(movie_name_en) LIKE UPPER(%s)
+            WHERE UPPER(movie_name) LIKE UPPER(%s) 
+            OR UPPER(movie_name_en) LIKE UPPER(%s)
+            ORDER BY favorited DESC;
         """
         search_param = f"%{search_string}%"
         
