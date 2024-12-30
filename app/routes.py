@@ -22,6 +22,7 @@ def configure_routes(app):
     @app.route('/api/movie-relations-n-data/', methods=['GET'])
     def get_movie_relations_n_data():
         movie_str = request.args.get('movie')
+        exponent = float(request.args.get('factor'))
         count = request.args.get('count')
         try:
             count = int(count)
@@ -29,7 +30,7 @@ def configure_routes(app):
             return jsonify([])
         if (count > int(30)):
             return jsonify([])
-        return jsonify(service.get_movie_relations_n_data(movie_str, count))
+        return jsonify(service.get_movie_relations_n_data(movie_str, count, exponent))
     
     @app.route('/api/base-info/', methods=['GET'])
     def fetch_every_movie_base_info():

@@ -57,7 +57,7 @@ class Service:
             movie_name, count, exponent)
         movies_data = self.fetch_movies_by_names(movie_relations.keys())
         for md in movies_data:
-            md['score'] = movie_relations[md['movie_str']]
+            md['similarity_score'] = movie_relations[md['movie_str']]
         return movies_data
 
 
